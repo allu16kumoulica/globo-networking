@@ -17,15 +17,15 @@ data "aws_availability_zones" "available" {}
 ##################################################################################
 locals {
   common_tags = {
-    
+
   }
 }
 
 module "main" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
-  name = var.prefix
-  cidr = var.cidr_block
+  name    = var.prefix
+  cidr    = var.cidr_block
 
   azs                     = slice(data.aws_availability_zones.available.names, 0, length(var.public_subnets))
   public_subnets          = [for k, v in var.public_subnets : v]
